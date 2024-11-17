@@ -26,9 +26,9 @@ pipeline {
                 dir('app'){
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh '''
-                            docker build -t msalim22/todo-list-app:v2 .
+                            docker build -t 934372/todo-list-app:v1 .
                             docker login -u ${USERNAME} -p ${PASSWORD}
-                            docker push msalim22/todo-list-app:v2
+                            docker push 934372/todo-list-app:v1
                         '''
                     }
                 }
@@ -39,7 +39,7 @@ pipeline {
             steps {
                 echo "deploying container"
                 sh 'docker stop todo-app || true && docker rm todo-app || true'
-                sh 'docker run --name todo-app -d -p 3000:3000 msalim22/todo-list-app:v2'
+                sh 'docker run --name todo-app -d -p 3000:3000 934372/todo-list-app:v1'
             }
         }
     }
